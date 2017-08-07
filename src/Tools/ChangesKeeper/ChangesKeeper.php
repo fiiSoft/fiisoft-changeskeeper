@@ -63,7 +63,7 @@ class ChangesKeeper
      * @param bool $force
      * @throws UnexpectedValueException
      * @throws LogicException
-     * @return $this fluent interface
+     * @return bool true if variable has been changed, false otherwise
      */
     public function change($name, $newValue, $force = false)
     {
@@ -74,9 +74,10 @@ class ChangesKeeper
         if ($this->variables[$name] !== $newValue || $force) {
             $this->track($name, $this->variables[$name], $newValue, $force);
             $this->variables[$name] = $newValue;
+            return true;
         }
         
-        return $this;
+        return false;
     }
     
     /**
@@ -87,15 +88,16 @@ class ChangesKeeper
      * @param mixed $newValue
      * @param bool $force
      * @throws UnexpectedValueException
-     * @return $this fluent interface
+     * @return bool true if variable has been changed, false otherwise
      */
     public function add($name, $oldValue, $newValue, $force = false)
     {
         if ($oldValue !== $newValue || $force) {
             $this->track($name, $oldValue, $newValue, $force);
+            return true;
         }
         
-        return $this;
+        return false;
     }
     
     /**
