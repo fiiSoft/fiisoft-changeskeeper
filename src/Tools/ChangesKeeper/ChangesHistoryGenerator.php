@@ -200,15 +200,15 @@ final class ChangesHistoryGenerator
         
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                return (string) $value;
+                return '"'.$value.'"';
             }
             
             if (method_exists($value, 'toString')) {
-                return (string) $value->toString();
+                return '"'.$value->toString().'"';
             }
             
             if (method_exists($value, 'asString')) {
-                return (string) $value->asString();
+                return '"'.$value->asString().'"';
             }
         }
         

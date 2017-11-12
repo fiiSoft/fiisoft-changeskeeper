@@ -102,10 +102,34 @@ class ChangesKeeperTest extends \PHPUnit_Framework_TestCase
         $keeper->clear();
         self::assertSame([], $keeper->getChanges());
         self::assertSame([], $keeper->getHistory());
+        
+        //step 10
+        $object = new kjdoeigfdsdkfj('wow');
+        $keeper->change('var2', $object);
+        
+        $changes = ['var2' => $object];
+        self::assertSame($changes, $keeper->getChanges());
+        
+        $history = [
+            'Zmiana var2 z "ola" na "wow"',
+        ];
+        self::assertSame($history, $keeper->getHistory());
     }
 }
 
 class ufdhqpodgkbafk {
     public $prop1;
     public $prop2;
+}
+
+class kjdoeigfdsdkfj {
+    private $value;
+    
+    public function __construct($value) {
+        $this->value = $value;
+    }
+    
+    public function __toString() {
+        return (string) $this->value;
+    }
 }
